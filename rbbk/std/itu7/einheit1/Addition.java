@@ -1,12 +1,15 @@
-package rbbk.std.itu7;
+package rbbk.std.itu7.einheit1;
+import javax.swing.*;
+import java.awt.*;
 import java.util.Scanner;
 
 
 public class Addition {
 
-    static boolean DEBUG = false;
+    static boolean DEBUG = true;
     public static final String EURO = "\u20AC";
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         if(DEBUG) {
             printer(template);
@@ -32,15 +35,32 @@ public class Addition {
         
     }
     public static void printer(Product[] products) {
+        javax.swing.JWindow window = new JWindow();
+        window.setSize(800,600);
+        window.setName("Hurray");
+        window.setVisible(true);
+        TextArea area = new TextArea();
+        window.add(area);
+        area.append(outputString(products));
+        area.setVisible(true);
+        window.validate();
+        System.out.println(outputString(products));
+
+
+    }
+    private static String outputString(Product[] products) {
         double allPrice = sumPrice(products);
-        System.out.println("Produktname-----Produktanzahl-----Produktpreis"+EURO);
+        String result ="Produktname-----Produktanzahl-----Produktpreis in "+EURO+"\n" +
+                "-----\n";
         for(Product product:products) {
-            System.out.println(""+product.name+"-----"+product.count+"-----"+getEuroPrice(product.price));
+            result += product.name+"-----"+product.count+"-----"+getEuroPrice(product.price)+"\n";
         }
-        System.out.println("-----");
-        System.out.println("Summe: "+getEuroPrice(allPrice));
-        System.out.println("Anzahl: "+countProducts(products));
-        System.out.println("Mehrwertsteuer: "+getEuroPrice(tax(allPrice)));
+        result += "-----\n"+
+                "Summe: "+getEuroPrice(allPrice)+"\n" +
+                "Anzahl: "+countProducts(products)+"\n" +
+                "Mehrwertsteuer: "+getEuroPrice(tax(allPrice))+"\n";
+
+        return result;
     }
     private static int countProducts(Product[] products) {
         int sumCount = 0;

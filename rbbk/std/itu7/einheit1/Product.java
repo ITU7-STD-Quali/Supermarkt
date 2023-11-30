@@ -1,4 +1,4 @@
-package rbbk.std.itu7;
+package rbbk.std.itu7.einheit1;
 public class Product {
     String name;
     double price;
